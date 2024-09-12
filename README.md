@@ -28,3 +28,15 @@ v2.drive(); // Prints “Tank drove 5 miles - 1995 miles to go”
 Motivera koden du skrev ovan. Hur valde du att realisera de olika typerna?
 Vad skulle fördelarna/nackdelarna ha varit mellan att välja något annat?
 (Interface, klass, abstrakt klass)
+
+Min motivering:
+Jag valde att använda mig av instansvariabler i Vehicle-klassen (type, milesToGo etc) i stället för av polymorfism, detta för att undvika kodduplicering.
+  * Dels skulle drive() enligt instruktionerna printa likadant formulerade budskap ("X didn’t drive - there’s no driver!" och "X drove Y miles - Z miles to go") oavsett fordonstyp, där det enda som skilde budskapen åt var subklassernas individuella typer (Car, Tank) och individuella antal miles.
+  * Dels skulle logiken för drive() vara densamma – metoden skulle kontrollera om fordonet hade en förare, och köra eller inte köra beroende på resultatet, oavsett om fordonet var en Car eller en MilitaryTank.
+
+Eftersom det inte var några skillnader mellan de olika fordonstypernas beteende som inte kunde lösas med instansvariabler krävdes ingen större flexibilitet för subklasserna, som det hade gjort om drive() skulle printa mindre lika budskap eller ha olika logik beroende på fordonstyp. Det kändes inte motiverat att använda polymorfism, även om det så klart är värdefullt att öva också på det.
+
+Jag valde att använda mig av en abstrakt klass i stället för av ett interface. 
+  * En konkret anledning är att redan "Vehicle v1 = new Car();" inte skulle ha fungerat som avsett, eftersom interfaces inte kan innehålla konstruktörer.
+  * Om jag hade använt mig av ett interface skulle jag ha varit tvungen att använda @Override på drive-metoden i varje individuell subklass, eftersom jag inte skulle ha kunnat definiera någon gemensam logik för subklasserna i drive-metoden i ett interface. Som jag beskrivit ovan ville jag undvika kodduplicering.
+  * Med en abstrakt klass kunde jag använda instansvariabler, som medger delad logik, direkt i Vehicle-klassen i stället för i de individuella subklasserna. Också det gjorde att jag kunde undvika kodduplicering.
